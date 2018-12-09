@@ -1,0 +1,49 @@
+p = int(input("input p: "))
+q = int(input("input q: "))
+s1 = int(input("input s1: "))
+s2 = int(input("input s2: "))
+P1 = int(input("input P1: "))
+P2 = int(input("input P2: "))
+
+N = p*q
+s1P1 = ( (s1*s1) * P1 )
+s2P2 = ( (s2*s2) * P2 )
+
+if ((s1P1%N)==(s2P2%N)):
+  print("s1P1%N == s2P2%N")
+else:
+  print("s1P1%N != s2P2%N")
+
+print("Inputting random numbers...")
+
+a = int(input("input a: "))
+b = int(input("input b: "))
+c = int(input("input c: "))
+
+A = (a*a)%N
+B = (b*b)%N
+C = (c*c)%N
+
+print("Alice sends {A, B, C}={%d, %d, %d}" % (A, B, C))
+
+E = [[(int(input("E["+str(i)+"]["+str(j)+"]: "))) for j in range(2)] for i in range(3)]
+
+M = ( a*(s1**E[0][0])*(s2**E[0][1]) ) % N
+P = ( b*(s1**E[1][0])*(s2**E[1][1]) ) % N
+Q = ( c*(s1**E[2][0])*(s2**E[2][1]) ) % N
+
+print("Alice sends R={M, P, Q}={%d, %d, %d}" % (M, P, Q))
+
+#Verifying
+A_alt = ( (M**2)*(P1**E[0][0])*(P2**E[0][1]) ) % N
+B_alt = ( (P**2)*(P1**E[1][0])*(P2**E[1][1]) ) % N
+C_alt = ( (Q**2)*(P1**E[2][0])*(P2**E[2][1]) ) % N
+
+print("Bob finds {A_alt, B_alt, C_alt}={%d, %d, %d}" % (A_alt, B_alt, C_alt))
+
+if ( A==A_alt and B==B_alt and C==C_alt):
+  print("Verified and accepted")
+else:
+  print("Error somewhere!")
+
+input("Press any key to continue.")
